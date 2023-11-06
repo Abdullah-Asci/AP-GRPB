@@ -1,0 +1,22 @@
+INDEX VERSION 1.134+C:\Users\aasci\Documents\GitHub\personnel\.metadata\.plugins\org.eclipse.jdt.core
+738394788.index
+4001619372.index
+2746514932.index
+2401319130.index
+2537307246.index
+1374645594.index
+2080064755.index
+1865797976.index
+2029951879.index
+1080065175.index
+350892354.index
+1468346639.index
+3814993967.index
+648635569.index
+2759691166.index
+2238135079.index
+455513021.index
+1398107373.index
+2789749808.index
+2802035775.index
+4180698389.index
