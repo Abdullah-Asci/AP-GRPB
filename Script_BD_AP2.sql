@@ -13,7 +13,7 @@ CREATE TABLE Employer(
    Status VARCHAR(20),
    Date_Dép DATE,
    Date_Arri DATE,
-   Id_L SMALLINT NOT NULL,
+   Id_L SMALLINT,
    PRIMARY KEY(ID_E),
    FOREIGN KEY(Id_L) REFERENCES Ligue(Id_L)
 );
