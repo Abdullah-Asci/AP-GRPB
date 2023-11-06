@@ -121,6 +121,8 @@ public class Employe implements Serializable, Comparable<Employe>
 	
 	public boolean checkPassword(String password)
 	{
+		//System.out.println(this.password);
+		//mdp : toor
 		return this.password.equals(password);
 	}
 
