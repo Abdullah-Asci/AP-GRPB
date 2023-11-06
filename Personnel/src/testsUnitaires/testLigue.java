@@ -24,4 +24,13 @@ class testLigue
 		assertTrue(employe.estRoot());
 		assertEquals(employe, ligue.getEmployes().first());
 	}
+
+	@Test
+	void addAmin() throws SauvegardeImpossible
+	{
+		Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
+		Employe employeAdmin = ligue.addAdmin("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty");
+		assertTrue(employeAdmin.estRoot());
+		assertEquals(employeAdmin, ligue.getEmployes().first());
+	}
 }
