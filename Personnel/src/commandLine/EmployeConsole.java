@@ -27,6 +27,8 @@ public class EmployeConsole
 			menu.add(changerPrenom(employe));
 			menu.add(changerMail(employe));
 			menu.add(changerPassword(employe));
+			menu.add(changerdatedarrive(employe));
+			menu.add(changerdatedepart(employe));
 			menu.addBack("q");
 			return menu;
 	}
@@ -53,5 +55,13 @@ public class EmployeConsole
 		return new Option("Changer le password", "x", () -> {employe.setPassword(getString("Nouveau password : "));});
 	}
 	
-
+	private Option changerdatedarrive(final Employe employe)
+	{
+		return new Option("Changer la date d'arrivée", "x", () -> {employe.setdatedarrive(getString("Nouveau date d'arriée : "));});
+	}
+	
+	private Option changerdatedepart(final Employe employe)
+	{
+		return new Option("Changer la date de départ", "x", () -> {employe.setdatedepart(getString("Nouveau date de départ : "));});
+	}
 }
