@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class bonjour {
     public static void main(String[] args) {
-        // Supposons que vous ayez une liste d'employés ici
+        // Supposons une liste d'employés ici
         String[] employes = {"Employé 1", "Employé 2", "Employé 3"};
 
         Scanner scanner = new Scanner(System.in);
@@ -33,7 +33,7 @@ public class bonjour {
                     // L'utilisateur a sélectionné un employé
                     System.out.println("Vous avez sélectionné : " + employeSelectionne);
 
-                    // Maintenant, vous pouvez offrir des options comme modifier ou supprimer
+                    //modifier ou supprimer
                     System.out.println("Que voulez-vous faire avec cet employé ?");
                     System.out.println("1. Modifier");
                     System.out.println("2. Supprimer");
