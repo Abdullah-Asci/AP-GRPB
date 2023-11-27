@@ -64,4 +64,9 @@ public class EmployeConsole
 	{
 		return new Option("Changer la date de départ", "d", () -> {employe.setdatedepart(LocalDate.parse("Nouveau date de départ : "));});
 	}
+	
+	private Option changerselectionner(final Employe employe)
+	{
+		return new Option("Selectionner un employe", "s", () -> {employe.setselectionner(getString("Employe selectionner : "));});
+	}
 }
