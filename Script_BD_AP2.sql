@@ -6,7 +6,7 @@ CREATE TABLE Ligue(
    Id_L SMALLINT,
    Nom_L VARCHAR(30),
    PRIMARY KEY(Id_L)
-);
+)ENGINE = INNODB;
 
 CREATE TABLE Employer(
    ID_E SMALLINT,
@@ -20,7 +20,7 @@ CREATE TABLE Employer(
    Id_L SMALLINT NOT NULL,
    PRIMARY KEY(ID_E),
    FOREIGN KEY(Id_L) REFERENCES Ligue(Id_L)
-);
+)ENGINE = INNODB;
 
 /*------------------------Test Enregistrement-------------------------*/
 
