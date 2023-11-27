@@ -62,4 +62,9 @@ public class EmployeConsole
 	{
 		return new Option("Changer la date de départ", "d", () -> {employe.setdatedepart(getString("Nouveau date de départ : "));});
 	}
+	
+	private Option selectionner(final Employe employe)
+	{
+		return new Option("Selectionner l'employe", "x", () -> {employe.setselectionner(getString("Nouvelle selection d'employe : "));});
+	}
 }
