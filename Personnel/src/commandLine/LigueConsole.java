@@ -98,7 +98,9 @@ public class LigueConsole
 		return new Option("ajouter un employé", "a",
 				() -> 
 				{
-					ligue.addEmploye(getString("nom : "), getString("prenom : "), getString("mail : "), getString("password : "));
+					ligue.addEmploye(getString("nom : "), 
+						getString("prenom : "), getString("mail : "), 
+						getString("password : "));
 				}
 		);
 	}
