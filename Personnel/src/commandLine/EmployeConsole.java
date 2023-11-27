@@ -2,6 +2,8 @@ package commandLine;
 
 import static commandLineMenus.rendering.examples.util.InOut.getString;
 
+import java.time.LocalDate;
+
 import commandLineMenus.ListOption;
 import commandLineMenus.Menu;
 import commandLineMenus.Option;
@@ -29,7 +31,6 @@ public class EmployeConsole
 			menu.add(changerPassword(employe));
 			menu.add(changerdatedarrive(employe));
 			menu.add(changerdatedepart(employe));
-			menu.add(selectionner(employe));
 			menu.addBack("q");
 			return menu;
 	}
@@ -56,16 +57,11 @@ public class EmployeConsole
 	
 	private Option changerdatedarrive(final Employe employe)
 	{
-		return new Option("Changer la date d'arrivée", "a", () -> {employe.setdatedarrive(getString("Nouveau date d'arriée : "));});
+		return new Option("Changer la date d'arrivée", "a", () -> {employe.setdatedarrive(LocalDate.parse("Nouveau date d'arriée : "));});
 	}
 	
 	private Option changerdatedepart(final Employe employe)
 	{
-		return new Option("Changer la date de départ", "d", () -> {employe.setdatedepart(getString("Nouveau date de départ : "));});
-	}
-	
-	private Option selectionner(final Employe employe)
-	{
-		return new Option("Selectionner l'employe", "s", () -> {employe.setselectionner(getString("Nouvelle selection d'employe : "));});
+		return new Option("Changer la date de départ", "d", () -> {employe.setdatedepart(LocalDate.parse("Nouveau date de départ : "));});
 	}
 }

@@ -98,9 +98,7 @@ public class LigueConsole
 		return new Option("ajouter un employé", "a",
 				() -> 
 				{
-					ligue.addEmploye(getString("nom : "), 
-						getString("prenom : "), getString("mail : "), 
-						getString("password : "));
+					ligue.addEmploye(getString("nom : "), getString("prenom : "), getString("mail : "), getString("password : "));
 				}
 		);
 	}
@@ -127,9 +125,9 @@ public class LigueConsole
 	
 	private List<Employe> changeradministrateur(final Ligue ligue)
 	{
-		return new List<>("Changer un administrateur", "s", 
+		return new List<>("Changer un administrateur", "c", 
 				() -> new ArrayList<>(ligue.getEmployes()),
-				(index, element) -> {element.remove();}
+				(index, element) -> {ligue.setAdministrateur(element);}
 				);
 	}		
 
