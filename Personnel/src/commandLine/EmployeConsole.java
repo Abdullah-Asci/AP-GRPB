@@ -66,6 +66,6 @@ public class EmployeConsole
 	
 	private Option selectionner(final Employe employe)
 	{
-		return new Option("Selectionner l'employe", "x", () -> {employe.setselectionner(getString("Nouvelle selection d'employe : "));});
+		return new Option("Selectionner l'employe", "s", () -> {employe.setselectionner(getString("Nouvelle selection d'employe : "));});
 	}
 }

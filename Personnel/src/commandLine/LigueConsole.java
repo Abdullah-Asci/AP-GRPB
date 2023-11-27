@@ -74,6 +74,7 @@ public class LigueConsole
 		//menu.add(changerAdministrateur(ligue));
 		menu.add(changerNom(ligue));
 		menu.add(supprimer(ligue));
+		menu.add(changeradministrateur(ligue));
 		menu.addBack("q");
 		return menu;
 	}
@@ -111,6 +112,7 @@ public class LigueConsole
 		menu.add(ajouterEmploye(ligue));
 		menu.add(modifierEmploye(ligue));
 		menu.add(supprimerEmploye(ligue));
+		menu.add(changeradministrateur(ligue));
 		menu.addBack("q");
 		return menu;
 	}
@@ -123,12 +125,15 @@ public class LigueConsole
 				);
 	}
 	
-	private List<Employe> changerAdministrateur(final Ligue ligue)
+	private List<Employe> changeradministrateur(final Ligue ligue)
 	{
-		return null;
+		return new List<>("Changer un administrateur", "s", 
+				() -> new ArrayList<>(ligue.getEmployes()),
+				(index, element) -> {element.remove();}
+				);
 	}		
 
-	private List<Employe> modifierEmploye(final Ligue ligue)
+	private List<Employe> modifierEmploye(final Ligue ligue)	
 	{
 		return new List<>("Modifier un employé", "e", 
 				() -> new ArrayList<>(ligue.getEmployes()),
