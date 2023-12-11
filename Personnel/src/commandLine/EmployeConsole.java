@@ -25,6 +25,7 @@ public class EmployeConsole
 	{
 			Menu menu = new Menu("Gérer le compte " + employe.getNom(), "c");
 			menu.add(afficher(employe));
+			menu.add(afficherdates(employe));
 			menu.add(changerNom(employe));
 			menu.add(changerPrenom(employe));
 			menu.add(changerMail(employe));
@@ -57,16 +58,17 @@ public class EmployeConsole
 	
 	private Option changerdatedarrive(final Employe employe)
 	{
-		return new Option("Changer la date d'arrivée", "a", () -> {employe.setdatedarrive(LocalDate.parse("Nouveau date d'arriée : "));});
+		return new Option("Changer la date d'arrivée", "a", () -> {employe.setdatedarrive(LocalDate.parse(getString("Nouveau date d'arriée : ")));});
 	}
 	
 	private Option changerdatedepart(final Employe employe)
 	{
-		return new Option("Changer la date de départ", "d", () -> {employe.setdatedepart(LocalDate.parse("Nouveau date de départ : "));});
+		return new Option("Changer la date de départ", "d", () -> {employe.setdatedepart(LocalDate.parse(getString("Nouveau date de départ : ")));});
 	}
 	
-	private Option changerselectionner(final Employe employe)
+	private Option afficherdates(final Employe employe)
 	{
-		return new Option("Selectionner un employe", "s", () -> {employe.setselectionner(getString("Employe selectionner : "));});
+		return new Option("Afficher les dates", "f", () -> {System.out.println("Date de départ : " + employe.getdatedarrive() + " date d'arrivé "+ employe.getdatedepart());});
 	}
+
 }

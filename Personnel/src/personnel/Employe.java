@@ -168,6 +168,11 @@ public class Employe implements Serializable, Comparable<Employe>
 	{
 		return ligue;
 	}
+	
+	public Ligue setLigue()
+	{
+		return ligue;
+	}
 
 	/**
 	 * Supprime l'employé. Si celui-ci est un administrateur, le root
