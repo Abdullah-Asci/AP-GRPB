@@ -68,7 +68,7 @@ public class EmployeConsole
 	
 	private Option afficherdates(final Employe employe)
 	{
-		return new Option("Afficher les dates", "f", () -> {System.out.println("Date de départ : " + employe.getdatedarrive() + " date d'arrivé "+ employe.getdatedepart());});
+		return new Option("Afficher les dates", "f", () -> {System.out.println("Date d'arrivé : " + employe.getdatedarrive() + " date de départ "+ employe.getdatedepart());});
 	}
 
 }
