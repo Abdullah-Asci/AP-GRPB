@@ -149,8 +149,12 @@ public class Employe implements Serializable, Comparable<Employe>
 		return datedarrive;
 	}
 
-	public void setdatedarrive(LocalDate datedarrive)
+	public void setdatedarrive(LocalDate datedarrive) throws ExceptionDarrive
 	{
+		if (datedepart != null) && (datedarrive.isBefore(datedepart))
+		{
+			throw new Exceptiondarrive();
+		}
 		this.datedarrive = datedarrive;
 	}
 	
@@ -159,8 +163,12 @@ public class Employe implements Serializable, Comparable<Employe>
 		return datedepart;
 	}
 
-	public void setdatedepart(LocalDate datedepart)
+	public void setdatedepart(LocalDate datedepart) throws ExceptionDepart
 	{
+		if (datedarrive != null) && (datedepart.isAfter(datedarrvie))
+		{
+			throw new ExceptionDepart();
+		}
 		this.datedepart = datedepart;
 	}
 	
