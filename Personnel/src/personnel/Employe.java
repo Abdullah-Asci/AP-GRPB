@@ -149,13 +149,17 @@ public class Employe implements Serializable, Comparable<Employe>
 		return datedarrive;
 	}
 
-	public void setdatedarrive(LocalDate datedarrive) throws ExceptionDarrive
+	public void setdatedarrive(LocalDate datedarrive) throws ExceptionDate
 	{
-		if (datedepart != null) && (datedarrive.isBefore(datedepart))
-		{
-			throw new Exceptiondarrive();
+		try {
+			if ((datedepart != null) && (datedarrive.isBefore(datedepart)))
+			{
+				throw new ExceptionDate();
+			}
+			this.datedarrive = datedarrive;
 		}
-		this.datedarrive = datedarrive;
+		catch (ExceptionDate e) {
+		}
 	}
 	
 	public LocalDate getdatedepart()
@@ -163,13 +167,18 @@ public class Employe implements Serializable, Comparable<Employe>
 		return datedepart;
 	}
 
-	public void setdatedepart(LocalDate datedepart) throws ExceptionDepart
+	public void setdatedepart(LocalDate datedepart) throws ExceptionDate
 	{
-		if (datedarrive != null) && (datedepart.isAfter(datedarrvie))
-		{
-			throw new ExceptionDepart();
-		}
-		this.datedepart = datedepart;
+		try {
+			if ((datedarrive != null) && (datedepart.isAfter(datedarrive)))
+			{
+				throw new ExceptionDate();
+			}
+				this.datedepart = datedepart;
+			} 
+		catch (ExceptionDate e) {
+				
+			}
 	}
 	
 	public Ligue getLigue()
