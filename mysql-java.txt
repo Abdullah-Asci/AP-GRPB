@@ -3,6 +3,12 @@ package commandLine;
 import personnel.*;
 import commandLineMenus.*;
 import static commandLineMenus.rendering.examples.util.InOut.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 
 public class PersonnelConsole
 {
@@ -10,12 +16,65 @@ public class PersonnelConsole
 	LigueConsole ligueConsole;
 	EmployeConsole employeConsole;
 	
+	
+	
 	public PersonnelConsole(GestionPersonnel gestionPersonnel)
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.employeConsole = new EmployeConsole();
 		this.ligueConsole = new LigueConsole(gestionPersonnel, employeConsole);
 	}
+	
+	public abstract class Passerelle {
+
+	    public abstract void connexion();
+
+	    public abstract ResultSet executionRequete(String requete);
+
+	    public abstract void fermerConnexion();
+	}
+	
+	public class PasserelleJDBC extends Passerelle {
+
+	    private static final String URL = "jdbc:mysql://localhost:3306/ma_base_de_donnees";
+	    private static final String UTILISATEUR = "utilisateur";
+	    private static final String MOT_DE_PASSE = "mot_de_passe";
+	    private Connection connexion;
+
+	    @Override
+	    public void connexion() {
+	        try {
+	            connexion = DriverManager.getConnection(URL, UTILISATEUR, MOT_DE_PASSE);
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    @Override
+	    public ResultSet executionRequete(String requete) {
+	        try {
+	            PreparedStatement statement = connexion.prepareStatement(requete);
+	            return statement.executeQuery();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            return null;
+	        }
+	    }
+
+	    @Override
+	    public void fermerConnexion() {
+	        try {
+	            if (connexion != null && !connexion.isClosed()) {
+	                connexion.close();
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+	
+	
+	
 	
 	public void start()
 	{
