@@ -27,8 +27,6 @@ public class EmployeConsole
 			menu.add(changerPrenom(employe));
 			menu.add(changerMail(employe));
 			menu.add(changerPassword(employe));
-			menu.add(changerdatedarrive(employe));
-			menu.add(changerdatedepart(employe));
 			menu.addBack("q");
 			return menu;
 	}
@@ -54,6 +52,7 @@ public class EmployeConsole
 	{
 		return new Option("Changer le password", "x", () -> {employe.setPassword(getString("Nouveau password : "));});
 	}
+<<<<<<< Updated upstream
 	
 	private Option changerdatedarrive(final Employe employe)
 	{
@@ -65,3 +64,6 @@ public class EmployeConsole
 		return new Option("Changer la date de départ", "x", () -> {employe.setdatedepart(getString("Nouveau date de départ : "));});
 	}
 }
+=======
+}
+>>>>>>> Stashed changes

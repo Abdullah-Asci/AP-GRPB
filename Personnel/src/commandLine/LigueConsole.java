@@ -71,7 +71,11 @@ public class LigueConsole
 		Menu menu = new Menu("Editer " + ligue.getNom());
 		menu.add(afficher(ligue));
 		menu.add(gererEmployes(ligue));
+<<<<<<< Updated upstream
 		//menu.add(changerAdministrateur(ligue));
+=======
+		//menu.add(changerAdministrateur(ligue));//
+>>>>>>> Stashed changes
 		menu.add(changerNom(ligue));
 		menu.add(supprimer(ligue));
 		menu.addBack("q");
