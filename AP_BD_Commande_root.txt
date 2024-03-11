@@ -1,8 +1,0 @@
-create user 'admin'@'localhost' IDENTIFIED BY 'root';
-
-//SELECT user FROM mysql.user;
-
-GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost';
-
-FLUSH PRIVILEGES;
-

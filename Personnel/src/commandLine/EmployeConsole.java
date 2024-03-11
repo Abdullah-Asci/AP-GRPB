@@ -2,8 +2,6 @@ package commandLine;
 
 import static commandLineMenus.rendering.examples.util.InOut.getString;
 
-import java.time.LocalDate;
-
 import commandLineMenus.ListOption;
 import commandLineMenus.Menu;
 import commandLineMenus.Option;
@@ -25,7 +23,6 @@ public class EmployeConsole
 	{
 			Menu menu = new Menu("Gérer le compte " + employe.getNom(), "c");
 			menu.add(afficher(employe));
-			menu.add(afficherdates(employe));
 			menu.add(changerNom(employe));
 			menu.add(changerPrenom(employe));
 			menu.add(changerMail(employe));
@@ -38,7 +35,9 @@ public class EmployeConsole
 
 	private Option changerNom(final Employe employe)
 	{
-		return new Option("Changer le nom", "n", () -> {employe.setNom(getString("Nouveau nom : "));});
+		return new Option("Changer le nom", "n", 
+				() -> {employe.setNom(getString("Nouveau nom : "));}
+			);
 	}
 	
 	private Option changerPrenom(final Employe employe)
@@ -58,19 +57,11 @@ public class EmployeConsole
 	
 	private Option changerdatedarrive(final Employe employe)
 	{
-		return new Option("Changer la date d'arrivée", "a", () -> {employe.setdatedarrive(LocalDate.parse(getString("Nouveau date d'arriée : ")));});
+		return new Option("Changer la date d'arrivée", "x", () -> {employe.setdatedarrive(getString("Nouveau date d'arriée : "));});
 	}
 	
 	private Option changerdatedepart(final Employe employe)
 	{
-		return new Option("Changer la date de départ", "d", () -> {employe.setdatedepart(LocalDate.parse(getString("Nouveau date de départ : ")));});
+		return new Option("Changer la date de départ", "x", () -> {employe.setdatedepart(getString("Nouveau date de départ : "));});
 	}
-	
-	private Option afficherdates(final Employe employe)
-	{
-		return new Option("Afficher les dates", "f", () -> {System.out.println("Date d'arrivé : " + employe.getdatedarrive() + " date de départ "+ employe.getdatedepart());});
-	}
-	
-	
-
 }

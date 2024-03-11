@@ -1,7 +1,6 @@
 package personnel;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 /**
  * Employé d'une ligue hébergée par la M2L. Certains peuvent 
@@ -14,19 +13,19 @@ import java.time.LocalDate;
 public class Employe implements Serializable, Comparable<Employe>
 {
 	private static final long serialVersionUID = 4795721718037994734L;
-	private String nom, prenom, password, mail;
-	private LocalDate datedarrive = LocalDate.now();
-	private LocalDate datedepart = LocalDate.now();
+	private String nom, prenom, password, datedarrive, datedepart, mail;
 	private Ligue ligue;
 	private GestionPersonnel gestionPersonnel;
 	
-	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password)
+	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, String datedarrive, String datedepart)
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.password = password;
 		this.mail = mail;
+		this.datedarrive = datedarrive;
+		this.datedepart = datedepart;
 		this.ligue = ligue;
 	}
 	
@@ -144,49 +143,27 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * @return la ligue à laquelle l'employé est affecté.
 	 */
 	
-	public LocalDate getdatedarrive()
+	public String getdatedarrive()
 	{
 		return datedarrive;
 	}
 
-	public void setdatedarrive(LocalDate datedarrive) throws ExceptionDate
+	public void setdatedarrive(String datedarrive)
 	{
-		try {
-			if ((datedepart != null) && (datedarrive.isBefore(datedepart)))
-			{
-				throw new ExceptionDate();
-			}
-			this.datedarrive = datedarrive;
-		}
-		catch (ExceptionDate e) {
-		}
+		this.datedarrive = datedarrive;
 	}
 	
-	public LocalDate getdatedepart()
+	public String getdatedepart()
 	{
 		return datedepart;
 	}
 
-	public void setdatedepart(LocalDate datedepart) throws ExceptionDate
+	public void setdatedepart(String datedepart)
 	{
-		try {
-			if ((datedarrive != null) && (datedepart.isAfter(datedarrive)))
-			{
-				throw new ExceptionDate();
-			}
-				this.datedepart = datedepart;
-			} 
-		catch (ExceptionDate e) {
-				
-			}
+		this.datedepart = datedepart;
 	}
 	
 	public Ligue getLigue()
-	{
-		return ligue;
-	}
-	
-	public Ligue setLigue()
 	{
 		return ligue;
 	}

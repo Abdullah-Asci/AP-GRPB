@@ -3,10 +3,10 @@ drop table if exists Ligue;
 drop table if exists Employer;
 
 CREATE TABLE Ligue(
-   Id_L SMALLINT AUTO_INCREMENT,
+   Id_L SMALLINT,
    Nom_L VARCHAR(30),
    PRIMARY KEY(Id_L)
-)ENGINE = INNODB;
+);
 
 CREATE TABLE Employer(
    ID_E SMALLINT,
@@ -15,12 +15,12 @@ CREATE TABLE Employer(
    Mail VARCHAR(50),
    MDP VARCHAR(50),
    Status VARCHAR(20),
-   Date_Dep DATE,
-   Date_Arri DATE,
-   Id_L SMALLINT,
+   Date_Dep Date,
+   Date_Arri Date,
+   Id_L SMALLINT NOT NULL,
    PRIMARY KEY(ID_E),
    FOREIGN KEY(Id_L) REFERENCES Ligue(Id_L)
-)ENGINE = INNODB;
+);
 
 /*------------------------Test Enregistrement-------------------------*/
 

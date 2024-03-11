@@ -1,7 +1,6 @@
 package personnel;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
