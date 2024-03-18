@@ -6,7 +6,7 @@ CREATE TABLE Ligue(
    Id_L SMALLINT NOT NULL AUTO_INCREMENT,
    Nom_L VARCHAR(30),
    PRIMARY KEY(Id_L)
-);
+)ENGINE = INNODB;
 
 CREATE TABLE Employer(
    ID_E SMALLINT NOT NULL AUTO_INCREMENT,
@@ -14,13 +14,13 @@ CREATE TABLE Employer(
    Prenom VARCHAR(20),
    Mail VARCHAR(50),
    MDP VARCHAR(50),
-   Status VARCHAR(20),
+   Status Boolean,
    Date_Dep Date,
    Date_Arri Date,
    Id_L SMALLINT NOT NULL,
    PRIMARY KEY(ID_E),
    FOREIGN KEY(Id_L) REFERENCES Ligue(Id_L)
-);
+)ENGINE = INNODB;
 
 /*------------------------Test Enregistrement-------------------------*/
 
