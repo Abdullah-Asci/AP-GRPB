@@ -8,13 +8,13 @@ CREATE TABLE Ligue(
    PRIMARY KEY(Id_L)
 )ENGINE = INNODB;
 
-CREATE TABLE Employer(
+CREATE TABLE Employe(
    ID_E SMALLINT NOT NULL AUTO_INCREMENT,
    Nom_E VARCHAR(20),
    Prenom VARCHAR(20),
    Mail VARCHAR(50),
    MDP VARCHAR(50),
-   Status Boolean,
+   Statut Boolean,
    Date_Dep Date,
    Date_Arri Date,
    Id_L SMALLINT NOT NULL,
