@@ -3,13 +3,13 @@ drop table if exists Ligue;
 drop table if exists Employer;
 
 CREATE TABLE Ligue(
-   Id_L SMALLINT,
+   Id_L SMALLINT NOT NULL AUTO_INCREMENT,
    Nom_L VARCHAR(30),
    PRIMARY KEY(Id_L)
 );
 
 CREATE TABLE Employer(
-   ID_E SMALLINT,
+   ID_E SMALLINT NOT NULL AUTO_INCREMENT,
    Nom_E VARCHAR(20),
    Prenom VARCHAR(20),
    Mail VARCHAR(50),
