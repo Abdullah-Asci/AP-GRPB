@@ -1,6 +1,9 @@
 package personnel;
 
 import java.io.Serializable;
+//import java.lang.Boolean;
+import java.time.LocalDate;
+//import java.sql.Date;
 
 /**
  * Employé d'une ligue hébergée par la M2L. Certains peuvent 
@@ -13,20 +16,30 @@ import java.io.Serializable;
 public class Employe implements Serializable, Comparable<Employe>
 {
 	private static final long serialVersionUID = 4795721718037994734L;
-	private String nom, prenom, password, datedarrive, datedepart, mail;
+	private String nom, prenom, password, mail;
 	private Ligue ligue;
+	private Boolean statut;
 	private GestionPersonnel gestionPersonnel;
+	private LocalDate dateArrivee = LocalDate.of(0000, 01, 01);
+	private LocalDate dateDepart = LocalDate.of(0000, 01, 01);
+	private int id;
 	
-	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, String datedarrive, String datedepart)
+	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, Boolean statut, String password)
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.password = password;
 		this.mail = mail;
-		this.datedarrive = datedarrive;
-		this.datedepart = datedepart;
+		//this.statut = statut;
 		this.ligue = ligue;
+		try {
+		this.id = gestionPersonnel.insert(this);
+		}
+		catch(SauvegardeImpossible e) 
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -58,6 +71,10 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * @return le nom de l'employé. 
 	 */
 	
+	public int getID() {
+		return id;
+	}
+	
 	public String getNom()
 	{
 		return nom;
@@ -71,6 +88,13 @@ public class Employe implements Serializable, Comparable<Employe>
 	public void setNom(String nom)
 	{
 		this.nom = nom;
+		try {
+			gestionPersonnel.update(this);
+		}
+		catch (SauvegardeImpossible e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -91,6 +115,13 @@ public class Employe implements Serializable, Comparable<Employe>
 	public void setPrenom(String prenom)
 	{
 		this.prenom = prenom;
+		try {
+			gestionPersonnel.update(this);
+		}
+		catch (SauvegardeImpossible e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -107,10 +138,27 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * Change le mail de l'employé.
 	 * @param mail le nouveau mail de l'employé.
 	 */
+	
+	public String getPassword()
+	{
+		return password;
+	}
+	
+	public Boolean getStatut()
+	{
+		return statut;
+	}
 
 	public void setMail(String mail)
 	{
 		this.mail = mail;
+		try {
+			gestionPersonnel.update(this);
+		}
+		catch (SauvegardeImpossible e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -124,7 +172,6 @@ public class Employe implements Serializable, Comparable<Employe>
 	public boolean checkPassword(String password)
 	{
 		//System.out.println(this.password);
-		//mdp : toor
 		return this.password.equals(password);
 	}
 
@@ -136,32 +183,19 @@ public class Employe implements Serializable, Comparable<Employe>
 	public void setPassword(String password)
 	{
 		this.password= password;
+		try {
+			gestionPersonnel.update(this);
+		}
+		catch (SauvegardeImpossible e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/**
 	 * Retourne la ligue à laquelle l'employé est affecté.
 	 * @return la ligue à laquelle l'employé est affecté.
 	 */
-	
-	public String getdatedarrive()
-	{
-		return datedarrive;
-	}
-
-	public void setdatedarrive(String datedarrive)
-	{
-		this.datedarrive = datedarrive;
-	}
-	
-	public String getdatedepart()
-	{
-		return datedepart;
-	}
-
-	public void setdatedepart(String datedepart)
-	{
-		this.datedepart = datedepart;
-	}
 	
 	public Ligue getLigue()
 	{
@@ -184,8 +218,54 @@ public class Employe implements Serializable, Comparable<Employe>
 		}
 		else
 			throw new ImpossibleDeSupprimerRoot();
+		try 
+		{
+			gestionPersonnel.delete(this);
+		}
+		catch(SauvegardeImpossible e) 
+		{
+			e.printStackTrace();
+		}
 	}
 
+	public LocalDate getDateArrivee() {
+        return dateArrivee;
+    }
+    public LocalDate getDateDepart() {
+        return dateDepart;
+    }
+
+/*    public void setDateArrivee(LocalDate dateArrivee) throws ExceptionArrivee{
+		if( (dateDepart != null) && (dateArrivee.isBefore(dateDepart) ) )
+		{
+			throw new ExceptionArrivee();
+		}
+		this.dateArrivee = dateArrivee;
+		try {
+			gestionPersonnel.update(this);
+		}
+		catch (SauvegardeImpossible e)
+		{
+			e.printStackTrace();
+		}
+		
+}
+    
+    public void setDateDepart(LocalDate dateDepart) throws ExceptionDepart {
+    	if( (dateArrivee != null) && (dateDepart.isAfter(dateArrivee) ) )
+		{
+			throw new ExceptionDepart();
+		}
+        this.dateDepart = dateDepart;
+        try {
+			gestionPersonnel.update(this);
+		}
+		catch (SauvegardeImpossible e)
+		{
+			e.printStackTrace();
+		}
+    }
+    */
 	@Override
 	public int compareTo(Employe autre)
 	{

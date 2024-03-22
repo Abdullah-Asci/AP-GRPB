@@ -42,6 +42,12 @@ public class Ligue implements Serializable, Comparable<Ligue>
 		this.id = id;
 	}
 
+	
+	public int getID() {
+		return id;
+	}
+	
+	
 	/**
 	 * Retourne le nom de la ligue.
 	 * @return le nom de la ligue.
@@ -60,6 +66,14 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	public void setNom(String nom)
 	{
 		this.nom = nom;
+		try
+		{
+			gestionPersonnel.update(this);
+		}
+		catch(SauvegardeImpossible e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -108,9 +122,9 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	 * @return l'employé créé. 
 	 */
 
-	public Employe addEmploye(String nom, String prenom, String mail, String password, String date)
+	public Employe addEmploye(String nom, String prenom, String mail, String password)
 	{
-		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, date);
+		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, null, password);
 		employes.add(employe);
 		return employe;
 	}
@@ -128,6 +142,12 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	public void remove()
 	{
 		gestionPersonnel.remove(this);
+		try {
+			gestionPersonnel.delete(this);
+		}
+		catch(SauvegardeImpossible e) {
+			e.printStackTrace();
+		}
 	}
 	
 

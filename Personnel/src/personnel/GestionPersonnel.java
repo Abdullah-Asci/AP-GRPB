@@ -20,7 +20,7 @@ public class GestionPersonnel implements Serializable
 	private static final long serialVersionUID = -105283113987886425L;
 	private static GestionPersonnel gestionPersonnel = null;
 	private SortedSet<Ligue> ligues;
-	private Employe root = new Employe(this, null, "root", "", "", "toor");
+	private Employe root = new Employe(this, null, "root", "", "",null, "toor");
 	public final static int SERIALIZATION = 1, JDBC = 2, 
 			TYPE_PASSERELLE = JDBC;  
 	private static Passerelle passerelle = TYPE_PASSERELLE == JDBC ? new jdbc.JDBC() : new serialisation.Serialization();	
@@ -45,7 +45,7 @@ public class GestionPersonnel implements Serializable
 	public GestionPersonnel()
 	{
 		if (gestionPersonnel != null)
-			throw new RuntimeException("Vous ne pouvez créer qu'une seuls instance de cet objet.");
+			throw new RuntimeException("Vous ne pouvez creer qu'une seuls instance de cet objet.");
 		ligues = new TreeSet<>();
 		gestionPersonnel = this;
 	}
@@ -71,8 +71,8 @@ public class GestionPersonnel implements Serializable
 	}
 
 	/**
-	 * Retourne toutes les ligues enregistrées.
-	 * @return toutes les ligues enregistrées.
+	 * Retourne toutes les ligues enregistrees.
+	 * @return toutes les ligues enregistrees.
 	 */
 	
 	public SortedSet<Ligue> getLigues()
@@ -104,6 +104,31 @@ public class GestionPersonnel implements Serializable
 		return passerelle.insert(ligue);
 	}
 
+	void update(Ligue ligue) throws SauvegardeImpossible
+	{
+		passerelle.update(ligue);
+	}
+	
+	void delete(Ligue ligue) throws SauvegardeImpossible
+	{
+		passerelle.delete(ligue);
+	}
+	
+	int insert(Employe employe) throws SauvegardeImpossible
+	{
+		return passerelle.insert(employe);
+	}
+	
+	void update(Employe employe) throws SauvegardeImpossible
+	{
+		passerelle.update(employe);
+	}
+	
+	void delete(Employe employe) throws SauvegardeImpossible
+	{
+		passerelle.delete(employe);
+	}
+	
 	/**
 	 * Retourne le root (super-utilisateur).
 	 * @return le root.
