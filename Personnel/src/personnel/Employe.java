@@ -1,9 +1,7 @@
 package personnel;
 
 import java.io.Serializable;
-//import java.lang.Boolean;
 import java.time.LocalDate;
-//import java.sql.Date;
 
 /**
  * Employé d'une ligue hébergée par la M2L. Certains peuvent 
@@ -16,22 +14,21 @@ import java.time.LocalDate;
 public class Employe implements Serializable, Comparable<Employe>
 {
 	private static final long serialVersionUID = 4795721718037994734L;
-	private String nom, prenom, password, mail;
+	private String nom, prenom, password, mail ,statut;
 	private Ligue ligue;
-	private Boolean statut;
 	private GestionPersonnel gestionPersonnel;
 	private LocalDate dateArrivee = LocalDate.of(0000, 01, 01);
 	private LocalDate dateDepart = LocalDate.of(0000, 01, 01);
 	private int id;
 	
-	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, Boolean statut, String password)
+	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String statut, String password, LocalDate dateArrivee, LocalDate dateDepart)
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.password = password;
 		this.mail = mail;
-		//this.statut = statut;
+		this.statut = statut;
 		this.ligue = ligue;
 		try {
 		this.id = gestionPersonnel.insert(this);
@@ -60,6 +57,11 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * Retourne vrai ssi l'employé est le root.
 	 * @return vrai ssi l'employé est le root.
 	 */
+	
+	public GestionPersonnel getGestionPersonnel()
+	{
+		return gestionPersonnel;
+	}
 	
 	public boolean estRoot()
 	{
@@ -144,7 +146,7 @@ public class Employe implements Serializable, Comparable<Employe>
 		return password;
 	}
 	
-	public Boolean getStatut()
+	public String getStatut()
 	{
 		return statut;
 	}
@@ -235,7 +237,7 @@ public class Employe implements Serializable, Comparable<Employe>
         return dateDepart;
     }
 
-/*    public void setDateArrivee(LocalDate dateArrivee) throws ExceptionArrivee{
+    public void setDateArrivee(LocalDate dateArrivee) throws ExceptionArrivee{
 		if( (dateDepart != null) && (dateArrivee.isBefore(dateDepart) ) )
 		{
 			throw new ExceptionArrivee();
@@ -265,7 +267,7 @@ public class Employe implements Serializable, Comparable<Employe>
 			e.printStackTrace();
 		}
     }
-    */
+    
 	@Override
 	public int compareTo(Employe autre)
 	{

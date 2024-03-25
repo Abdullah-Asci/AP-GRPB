@@ -1,6 +1,7 @@
 package personnel;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -17,10 +18,12 @@ public class Ligue implements Serializable, Comparable<Ligue>
 {
 	private static final long serialVersionUID = 1L;
 	private int id = -1;
-	private String nom;
+	private String nom, statut;
 	private SortedSet<Employe> employes;
 	private Employe administrateur;
 	private GestionPersonnel gestionPersonnel;
+	private LocalDate dateArrivee = LocalDate.of(0000, 01, 01);
+	private LocalDate dateDepart = LocalDate.of(0000, 01, 01);
 	
 	/**
 	 * Crée une ligue.
@@ -124,7 +127,7 @@ public class Ligue implements Serializable, Comparable<Ligue>
 
 	public Employe addEmploye(String nom, String prenom, String mail, String password)
 	{
-		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, null, password);
+		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, statut, dateArrivee, dateDepart);
 		employes.add(employe);
 		return employe;
 	}

@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Date;
-
+//import java.time.LocalDate;
 import personnel.*;
 
 public class JDBC implements Passerelle 
@@ -69,6 +69,7 @@ public class JDBC implements Passerelle
 		}
 	}
 	
+	
 	//Ligue
 	
 	@Override
@@ -90,7 +91,7 @@ public class JDBC implements Passerelle
 			throw new SauvegardeImpossible(exception);
 		}		
 	}
-	
+
 	@Override
 	public void delete(Ligue ligue) throws SauvegardeImpossible 
 	{
@@ -125,8 +126,10 @@ public class JDBC implements Passerelle
 		}		
 	}
 	
+	
 	//Employe
 	
+	@Override
 	public int insert(Employe employe) throws SauvegardeImpossible 
 	{
 		try 
@@ -134,18 +137,31 @@ public class JDBC implements Passerelle
 			Date dateArriveeSQL = Date.valueOf(employe.getDateArrivee());
 			Date dateDepartSQL = Date.valueOf(employe.getDateDepart());
 			PreparedStatement instruction;
-			instruction = connection.prepareStatement("insert into employe (nom_E, prenom, mail, mdp, statut, Date_Dep, Date_Arri) values(?, ?, ?, ?, null, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-			instruction.setString(1, employe.getNom());
-			instruction.setString(2, employe.getPrenom());
-			instruction.setString(3, employe.getMail());
-			instruction.setString(4, employe.getPassword());
-			instruction.setBoolean(5, employe.getStatut());
-			instruction.setDate(4, dateArriveeSQL);
-			instruction.setDate(5, dateDepartSQL);
+			if (employe.getLigue()!=null) {
+				instruction = connection.prepareStatement("insert into employe (nom_E, prenom, mail, mdp, Date_Dep, Date_Arri, Id_L) values(?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+				instruction.setString(1, employe.getNom());
+				instruction.setString(2, employe.getPrenom());
+				instruction.setString(3, employe.getMail());
+				instruction.setString(4, employe.getPassword());
+				instruction.setDate(5, dateArriveeSQL);
+				instruction.setDate(6, dateDepartSQL);
+				instruction.setInt(7, employe.getLigue().getID());
+				}
+			else{
+				instruction = connection.prepareStatement("insert into employe (nom_E, prenom, mail, mdp, statut, Date_Dep, Date_Arri) values(?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+				instruction.setString(1, employe.getNom());
+				instruction.setString(2, employe.getPrenom());
+				instruction.setString(3, employe.getMail());
+				instruction.setString(4, employe.getPassword());
+				instruction.setString(5, employe.getStatut());
+				instruction.setDate(6, dateArriveeSQL);
+				instruction.setDate(7, dateDepartSQL);
+			}			
 			instruction.executeUpdate();
 			ResultSet Id_E = instruction.getGeneratedKeys();
 			Id_E.next();
 			return Id_E.getInt(1);
+
 		} 
 		catch (SQLException exception) 
 		{
@@ -154,6 +170,7 @@ public class JDBC implements Passerelle
 		}		
 	}
 	
+	@Override
 	public void delete(Employe employe) throws SauvegardeImpossible 
 	{
 		try 
@@ -170,6 +187,7 @@ public class JDBC implements Passerelle
 		}		
 	}
 	
+	@Override
 	public void update(Employe employe) throws SauvegardeImpossible 
 	{
 		try 
@@ -182,6 +200,7 @@ public class JDBC implements Passerelle
 			instruction.setString(2, employe.getPrenom());
 			instruction.setString(3, employe.getMail());
 			instruction.setString(4, employe.getPassword());
+			//instruction.setString(5, employe.getStatut());
 			instruction.setDate(5, dateArriveeSQL);
 			instruction.setDate(6, dateDepartSQL);
 			instruction.setInt(7, employe.getID());

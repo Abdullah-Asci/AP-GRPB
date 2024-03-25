@@ -14,10 +14,10 @@ CREATE TABLE Employe(
    Prenom VARCHAR(20),
    Mail VARCHAR(50),
    MDP VARCHAR(50),
-   Statut Boolean,
+   Statut VARCHAR(5),
    Date_Dep Date,
    Date_Arri Date,
-   Id_L SMALLINT NOT NULL,
+   Id_L SMALLINT NULL,
    PRIMARY KEY(ID_E),
    FOREIGN KEY(Id_L) REFERENCES Ligue(Id_L)
 )ENGINE = INNODB;
