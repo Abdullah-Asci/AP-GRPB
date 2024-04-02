@@ -30,6 +30,9 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.mail = mail;
 		this.statut = statut;
 		this.ligue = ligue;
+		//this.dateArrivee = dateArrivee;
+		//this.dateDepart = dateDepart;
+		
 		try {
 		this.id = gestionPersonnel.insert(this);
 		}
@@ -140,16 +143,6 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * Change le mail de l'employé.
 	 * @param mail le nouveau mail de l'employé.
 	 */
-	
-	public String getPassword()
-	{
-		return password;
-	}
-	
-	public String getStatut()
-	{
-		return statut;
-	}
 
 	public void setMail(String mail)
 	{
@@ -163,6 +156,16 @@ public class Employe implements Serializable, Comparable<Employe>
 		}
 	}
 
+	public String getStatut()
+	{
+		return statut;
+	}
+	
+	public String getPassword()
+	{
+		return password;
+	}
+	
 	/**
 	 * Retourne vrai ssi le password passé en paramètre est bien celui
 	 * de l'employé.

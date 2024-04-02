@@ -42,7 +42,7 @@ public class LigueConsole
 				() -> 
 				{
 					System.out.println(ligue);
-					System.out.println("administree par " + ligue.getAdministrateur());
+					System.out.println("administrée par " + ligue.getAdministrateur());
 				}
 		);
 	}
@@ -71,13 +71,22 @@ public class LigueConsole
 		Menu menu = new Menu("Editer " + ligue.getNom());
 		menu.add(afficher(ligue));
 		menu.add(gererEmployes(ligue));
-		//menu.add(changerAdministrateur(ligue));
+		menu.add(changerAdministrateur(ligue));
 		menu.add(changerNom(ligue));
 		menu.add(supprimer(ligue));
 		menu.addBack("q");
 		return menu;
 	}
 
+	
+	private List<Employe> changerAdministrateur(final Ligue ligue)
+	{
+		return new List<>("Changer l'administrateur", "c", 
+				() -> new ArrayList<>(ligue.getEmployes()),
+				(index, element) -> {ligue.setAdministrateur(element);}
+				);
+	}	
+	
 	private Option changerNom(final Ligue ligue)
 	{
 		return new Option("Renommer", "r", 

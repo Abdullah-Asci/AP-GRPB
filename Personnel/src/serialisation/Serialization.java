@@ -65,9 +65,3 @@ public class Serialization implements personnel.Passerelle
 	public void update(Employe employe) throws SauvegardeImpossible
 	{}
 }
-
-
-
-
-
-

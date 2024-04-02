@@ -1,7 +1,11 @@
 package personnel;
 
 public class ExceptionDepart extends Exception{
-     	public ExceptionDepart()
+     	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+		public ExceptionDepart()
 	    {
 	        System.out.println("Exception ExceptionDepart has been raised...");
 	    }
@@ -10,6 +14,4 @@ public class ExceptionDepart extends Exception{
         {
           return "La date de départ ne peut pas etre avant la date d'arrivée ";
         }
-	
-
 }

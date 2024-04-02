@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Date;
 //import java.time.LocalDate;
+
 import personnel.*;
 
 public class JDBC implements Passerelle 
@@ -108,6 +109,7 @@ public class JDBC implements Passerelle
 			throw new SauvegardeImpossible(exception);
 		}		
 	}
+	
 	@Override
 	public void update(Ligue ligue) throws SauvegardeImpossible 
 	{
@@ -125,6 +127,7 @@ public class JDBC implements Passerelle
 			throw new SauvegardeImpossible(exception);
 		}		
 	}
+	
 	
 	
 	//Employe
@@ -195,15 +198,15 @@ public class JDBC implements Passerelle
 			Date dateArriveeSQL = Date.valueOf(employe.getDateArrivee());
 			Date dateDepartSQL = Date.valueOf(employe.getDateDepart());
 			PreparedStatement instruction;
-			instruction = connection.prepareStatement("update employe set nom_E=(?), prenom=(?), mail=(?), mdp=(?), date_dep=(?), date_arri=(?) where id_E = (?)", Statement.RETURN_GENERATED_KEYS);
+			instruction = connection.prepareStatement("update employe set nom_E=(?), prenom=(?), mail=(?), mdp=(?), statut=(?), date_dep=(?), date_arri=(?) where id_E = (?)", Statement.RETURN_GENERATED_KEYS);
 			instruction.setString(1, employe.getNom());
 			instruction.setString(2, employe.getPrenom());
 			instruction.setString(3, employe.getMail());
 			instruction.setString(4, employe.getPassword());
-			//instruction.setString(5, employe.getStatut());
-			instruction.setDate(5, dateArriveeSQL);
-			instruction.setDate(6, dateDepartSQL);
-			instruction.setInt(7, employe.getID());
+			instruction.setString(5, employe.getStatut());
+			instruction.setDate(6, dateArriveeSQL);
+			instruction.setDate(7, dateDepartSQL);
+			instruction.setInt(8, employe.getID());
 			instruction.executeUpdate();
 		} 
 		catch (SQLException exception) 
