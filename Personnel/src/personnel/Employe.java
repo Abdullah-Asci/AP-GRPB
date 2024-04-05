@@ -161,25 +161,24 @@ public class Employe implements Serializable, Comparable<Employe>
 		return statut;
 	}
 	
+	public void setStatut(String statut)
+	{
+		this.statut = statut;
+		try {
+			gestionPersonnel.update(this);
+		}
+		catch (SauvegardeImpossible e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
 	public String getPassword()
 	{
 		return password;
 	}
 	
-	/**
-	 * Retourne vrai ssi le password passé en paramètre est bien celui
-	 * de l'employé.
-	 * @return vrai ssi le password passé en paramètre est bien celui
-	 * de l'employé.
-	 * @param password le password auquel comparer celui de l'employé.
-	 */
-	
-	public boolean checkPassword(String password)
-	{
-		//System.out.println(this.password);
-		return this.password.equals(password);
-	}
-
 	/**
 	 * Change le password de l'employé.
 	 * @param password le nouveau password de l'employé. 
@@ -196,6 +195,22 @@ public class Employe implements Serializable, Comparable<Employe>
 			e.printStackTrace();
 		}
 	}
+	
+	
+	/**
+	 * Retourne vrai ssi le password passé en paramètre est bien celui
+	 * de l'employé.
+	 * @return vrai ssi le password passé en paramètre est bien celui
+	 * de l'employé.
+	 * @param password le password auquel comparer celui de l'employé.
+	 */
+	
+	public boolean checkPassword(String password)
+	{
+		//System.out.println(this.password); //pour afficher le mdp
+		return this.password.equals(password);
+	}
+
 
 	/**
 	 * Retourne la ligue à laquelle l'employé est affecté.

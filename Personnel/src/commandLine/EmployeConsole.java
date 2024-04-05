@@ -56,7 +56,7 @@ public class EmployeConsole
 	
 	private Option changerStatut(final Employe employe)
 	{
-		return new Option("Changer le statut", "s", () -> {employe.setPassword(getString("Nouveau statut : "));});
+			return new Option("Changer le statut", "s", () -> {employe.setStatut(getString("Nouveau statut : "));});
 	}
 
 }

@@ -2,3 +2,6 @@
 GestionPersonnel.srz
 /target/
 /.metadata/
+/.classpath/
+/.project/
+/.pom.xml/
