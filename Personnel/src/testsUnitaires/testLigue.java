@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import personnel.*;
 
-class testLigue 
-{
+public class testLigue {
 	GestionPersonnel gestionPersonnel = GestionPersonnel.getGestionPersonnel();
 	
 	@Test
