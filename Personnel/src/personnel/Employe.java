@@ -2,6 +2,8 @@ package personnel;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Employ√© d'une ligue h√©berg√©e par la M2L. Certains peuvent 
@@ -26,12 +28,10 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.gestionPersonnel = gestionPersonnel;
 		this.nom = nom;
 		this.prenom = prenom;
-		this.password = password;
+		this.password = (password != null) ? hashPassword(password) : "defaultPassword";
 		this.mail = mail;
 		this.statut = statut;
 		this.ligue = ligue;
-		//this.dateArrivee = dateArrivee;
-		//this.dateDepart = dateDepart;
 		
 		try {
 		this.id = gestionPersonnel.insert(this);
@@ -186,7 +186,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	
 	public void setPassword(String password)
 	{
-		this.password= password;
+		this.password = hashPassword(password);
 		try {
 			gestionPersonnel.update(this);
 		}
@@ -205,11 +205,32 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * @param password le password auquel comparer celui de l'employ√©.
 	 */
 	
-	public boolean checkPassword(String password)
+	public boolean checkPassword(String Password)
 	{
 		//System.out.println(this.password); //pour afficher le mdp
-		return this.password.equals(password);
+	    return this.password.equals(hashPassword(Password));
 	}
+	
+	
+	private static String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hashedBytes = digest.digest(password.getBytes());
+
+            // Convertir les octets hashÈs en format hexadÈcimal
+            StringBuilder hexString = new StringBuilder();
+            for (byte hashedByte : hashedBytes) {
+                String hex = Integer.toHexString(0xff & hashedByte);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            // GÈrer l'exception (par exemple, en logguant l'erreur)
+            e.printStackTrace();
+            return null; // Ou lancer une exception appropriÈe
+        }
+    }
 
 
 	/**
