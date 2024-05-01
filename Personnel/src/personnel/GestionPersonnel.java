@@ -1,6 +1,7 @@
 package personnel;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -20,7 +21,9 @@ public class GestionPersonnel implements Serializable
 	private static final long serialVersionUID = -105283113987886425L;
 	private static GestionPersonnel gestionPersonnel = null;
 	private SortedSet<Ligue> ligues;
-	private Employe root = new Employe(this, null, "root", "", "", "Admin", "toor", null, null);
+	private SortedSet<Employe> employes;
+	private Employe root ;
+	
 	public final static int SERIALIZATION = 1, JDBC = 2, 
 			TYPE_PASSERELLE = JDBC;  
 	private static Passerelle passerelle = TYPE_PASSERELLE == JDBC ? new jdbc.JDBC() : new serialisation.Serialization();	
@@ -31,24 +34,42 @@ public class GestionPersonnel implements Serializable
 	 * @return l'unique objet de type {@link GestionPersonnel}.
 	 */
 	
-	public static GestionPersonnel getGestionPersonnel()
-	{
-		if (gestionPersonnel == null)
-		{
+	public static GestionPersonnel getGestionPersonnel() {
+		if (gestionPersonnel == null) {
 			gestionPersonnel = passerelle.getGestionPersonnel();
-			if (gestionPersonnel == null)
+			if (gestionPersonnel == null) {
 				gestionPersonnel = new GestionPersonnel();
+			}
 		}
 		return gestionPersonnel;
 	}
 
-	public GestionPersonnel()
-	{
-		if (gestionPersonnel != null)
+	public GestionPersonnel() {
+		if (gestionPersonnel != null) {
 			throw new RuntimeException("Vous ne pouvez creer qu'une seuls instance de cet objet.");
+		}
 		ligues = new TreeSet<>();
+		employes = new TreeSet<>();
 		gestionPersonnel = this;
+		
+        // Vérifier si le root existe déjà
+        root = trouverRoot();
+        if (root == null) {
+            // Si le root n'existe pas, le créer
+            root = new Employe(this, null, "root", "", "", "toor", "Admin", null, null);
+        }
 	}
+	
+    private Employe trouverRoot() {
+        for (Ligue ligue : ligues) {
+            for (Employe employe : ligue.getEmployes()) {
+                if (employe.getNom().equals("root")) {
+                    return employe;
+                }
+            }
+        }
+        return null;
+    }
 	
 	public void sauvegarder() throws SauvegardeImpossible
 	{
@@ -62,70 +83,67 @@ public class GestionPersonnel implements Serializable
 	 * @return la ligue dont administrateur est l'administrateur.
 	 */
 	
-	public Ligue getLigue(Employe administrateur)
-	{
+	public Ligue getLigue(Employe administrateur){
 		if (administrateur.estAdmin(administrateur.getLigue()))
 			return administrateur.getLigue();
 		else
 			return null;
 	}
-
+	
+	
 	/**
 	 * Retourne toutes les ligues enregistrees.
 	 * @return toutes les ligues enregistrees.
 	 */
 	
-	public SortedSet<Ligue> getLigues()
-	{
+	public SortedSet<Ligue> getLigues()	{
 		return Collections.unmodifiableSortedSet(ligues);
 	}
 
-	public Ligue addLigue(String nom) throws SauvegardeImpossible
-	{
+	public Ligue addLigue(String nom) throws SauvegardeImpossible {
 		Ligue ligue = new Ligue(this, nom); 
 		ligues.add(ligue);
 		return ligue;
 	}
 	
-	public Ligue addLigue(int id, String nom)
-	{
+	public Ligue addLigue(int id, String nom){
 		Ligue ligue = new Ligue(this, id, nom);
 		ligues.add(ligue);
 		return ligue;
 	}
+	
+	public Employe addEmploye(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, String statut,  LocalDate dateArrivee, LocalDate dateDepart) {
+		Employe employe = new Employe(this, ligue, nom, prenom, mail, password, statut, dateArrivee, dateDepart);
+		employes.add(employe);
+	    return employe;
+	}
+	
 
-	void remove(Ligue ligue)
-	{
+	void remove(Ligue ligue) {
 		ligues.remove(ligue);
 	}
 	
-	int insert(Ligue ligue) throws SauvegardeImpossible
-	{
+	int insert(Ligue ligue) throws SauvegardeImpossible	{
 		return passerelle.insert(ligue);
 	}
 
-	void update(Ligue ligue) throws SauvegardeImpossible
-	{
+	void update(Ligue ligue) throws SauvegardeImpossible {
 		passerelle.update(ligue);
 	}
 	
-	void delete(Ligue ligue) throws SauvegardeImpossible
-	{
+	void delete(Ligue ligue) throws SauvegardeImpossible {
 		passerelle.delete(ligue);
 	}
 	
-	int insert(Employe employe) throws SauvegardeImpossible
-	{
+	int insert(Employe employe) throws SauvegardeImpossible {
 		return passerelle.insert(employe);
 	}
 	
-	void update(Employe employe) throws SauvegardeImpossible
-	{
+	void update(Employe employe) throws SauvegardeImpossible {
 		passerelle.update(employe);
 	}
 	
-	void delete(Employe employe) throws SauvegardeImpossible
-	{
+	void delete(Employe employe) throws SauvegardeImpossible {
 		passerelle.delete(employe);
 	}
 	
@@ -134,8 +152,7 @@ public class GestionPersonnel implements Serializable
 	 * @return le root.
 	 */
 	
-	public Employe getRoot()
-	{
+	public Employe getRoot() {
 		return root;
 	}
 }

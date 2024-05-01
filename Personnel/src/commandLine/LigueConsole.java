@@ -1,4 +1,6 @@
 package commandLine;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import static commandLineMenus.rendering.examples.util.InOut.getString;
 
@@ -97,9 +99,23 @@ public class LigueConsole
 		return new Option("ajouter un employe", "a",
 				() -> 
 				{
-					ligue.addEmploye(getString("nom : "), 
-						getString("prenom : "), getString("mail : "), 
-						getString("password : "));
+	                String nom = getString("Nom : ");
+	                String prenom = getString("Prenom : ");
+	                String mail = getString("Mail : ");
+	                String password = getString("Password : ");
+	                String statut = null;
+	                LocalDate dateArrivee = LocalDate.now(); // Date d'arrivée par défaut à aujourd'hui
+	                LocalDate dateDepart = LocalDate.now(); // Date de départ par défaut à aujourd'hui
+
+	                try {
+	                    //dateArrivee = LocalDate.parse(getString("Date d'arrivée (AAAA-MM-JJ) : "));
+	                    //dateDepart = LocalDate.parse(getString("Date de départ (AAAA-MM-JJ) : "));
+	                } catch (DateTimeParseException e) {
+	                    System.out.println("Format de date invalide. Les dates d'arrivée et de départ seront définies à aujourd'hui.");
+	                }
+
+	                Employe employe = new Employe(gestionPersonnel, ligue, nom, prenom, mail, password, statut, dateArrivee, dateDepart);
+	                ligue.addEmploye(employe);
 				}
 		);
 	}

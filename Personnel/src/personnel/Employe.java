@@ -23,24 +23,30 @@ public class Employe implements Serializable, Comparable<Employe>
 	private LocalDate dateDepart = LocalDate.of(0000, 01, 01);
 	private int id;
 	
-	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String statut, String password, LocalDate dateArrivee, LocalDate dateDepart)
+	public Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, String statut,  LocalDate dateArrivee, LocalDate dateDepart)
 	{
 		this.gestionPersonnel = gestionPersonnel;
+		this.ligue = ligue;
 		this.nom = nom;
 		this.prenom = prenom;
-		this.password = (password != null) ? hashPassword(password) : "defaultPassword";
 		this.mail = mail;
 		this.statut = statut;
-		this.ligue = ligue;
+		this.password = (password != null) ? hashPassword(password) : "defaultPassword";
 		
+	    // Utiliser la valeur par défaut si dateArrivee est null
+	    this.dateArrivee = (dateArrivee != null) ? dateArrivee : LocalDate.of(0, 1, 1);
+
+	    // Utiliser la valeur par défaut si dateDepart est null
+	    this.dateDepart = (dateDepart != null) ? dateDepart : LocalDate.of(0, 1, 1);
+	    
 		try {
-		this.id = gestionPersonnel.insert(this);
+			this.id = gestionPersonnel.insert(this);
 		}
-		catch(SauvegardeImpossible e) 
-		{
+		catch(SauvegardeImpossible e) {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	/**
 	 * Retourne vrai ssi l'employÃ© est administrateur de la ligue 
@@ -78,6 +84,10 @@ public class Employe implements Serializable, Comparable<Employe>
 	
 	public int getID() {
 		return id;
+	}
+	
+	public void setID(int id) {
+	    this.id = id;
 	}
 	
 	public String getNom()
