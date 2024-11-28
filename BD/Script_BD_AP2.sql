@@ -1,6 +1,6 @@
 /*------------------------Tables-------------------------*/
 drop table if exists Ligue;
-drop table if exists Employer;
+drop table if exists Employe;
 
 CREATE TABLE Ligue(
    Id_L SMALLINT NOT NULL AUTO_INCREMENT,
@@ -13,7 +13,7 @@ CREATE TABLE Employe(
    Nom_E VARCHAR(20),
    Prenom VARCHAR(20),
    Mail VARCHAR(50),
-   MDP VARCHAR(50),
+   MDP VARCHAR(64),
    Statut VARCHAR(5),
    Date_Dep Date,
    Date_Arri Date,
